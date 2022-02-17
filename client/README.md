@@ -1,3 +1,61 @@
+# CLIENT
+
+## PROJECT STRUCTURE
+If you've ever worked with Rails, the project layout will seem pretty familiar.
+Each model has a dedicated page for each part of its CRUD functionality. That is...
+
+## /Pages
+### /User
+* Users : displays a list of all users 
+* UserShow : user's profile page
+* UserNew : page dedicated to creating a new user (register page)
+* UserEdit : edit page for user information
+* ValidatedForm : reusable component that verifies to make sure no required imputs are empty
+
+Along with various other custom pages such as settings, which includes links to wallet, delete account, and edit user info
+
+## /hooks
+Here we contain all custom hooks and Context instances
+### useAuth.js
+Custom hook used for any API calls dealing with user authentication, 
+return object containing functions for login, logout, and registerUser, as well as any erros encountered during the call.
+* #### login()
+  Login works by making the appropriate api call, saving the JWT token to the localstorage, and calling on the UserContext that we declared in App.js to set the authUser to the newly logged in user. modifying UserContext is necessary to login the user immediately without waiting for a page refresh.
+* #### logout()
+  Logout simply deletes the auth token from local storage and sets the authUser from UserContext to null
+
+### useFindUser.js
+useFindUser is the custom hook responsible for storing the currently authenticated user in state. On mounting, it 
+checks the client's localstorage for a valid auth token. It returns the user object and setUser function.
+This hook is used in App.js to maintain the state for the UserContext provider.
+
+## /services
+### auth-header.js
+This function checks the client's local storage for a valid auth token, if it exists, it returns a header 
+object to pass into a client's request.
+
+## /Auth
+### Login.js
+Simple login page
+
+### PrivateRoute.js
+Checks to see if user is logged in, if not, redirects user to login page.
+
+## DEALING WITH AUTHENTICATION
+In App.js, we call useFindUser to check to see if the client has a valid auth token in the localstorage. 
+This is passed down to all child components as React Context. Meaning that in any child component, if we want 
+to verify whether or not a user is logged in, we can simply call:
+
+~~~
+const { authUser } = useContext(UserContext);
+
+if (authUser) {
+  // some logic
+}
+~~~
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

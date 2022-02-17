@@ -13,8 +13,7 @@ export default function Nav() {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  const searchInput = React.useRef(null)
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
 
   const [focused, setFocused] = useState(false)
   const onFocus = () => setFocused(true)
