@@ -48,16 +48,16 @@ app.get('/users/:id', verifyJWT, UserController.find);
 app.get('/users', verifyJWT, UserController.all);
 app.post('/search', verifyJWT, UserController.search);
 app.put('/users/:id/edit', verifyJWT, UserController.update);
-app.delete('/users/:id', verifyJWT,UserController.delete);
-app.post('/users/:user_id/add-workoutgroup/:workoutgroup_id', verifyJWT,UserController.addWorkoutgroup);
-app.post('/users/:user_id/drop-workoutgroup/:workoutgroup_id', verifyJWT,UserController.dropWorkoutgroup);
+app.delete('/users/:id', verifyJWT, UserController.delete);
+app.post('/users/:user_id/add-workoutgroup/:workoutgroup_id', verifyJWT, UserController.addWorkoutgroup);
+app.post('/users/:user_id/drop-workoutgroup/:workoutgroup_id', verifyJWT, UserController.dropWorkoutgroup);
 app.post('/users/:user_id/add-friend/:friend_id', verifyJWT, UserController.addFriend);
 app.post('/users/:user_id/drop-friend/:friend_id', verifyJWT, UserController.dropFriend);
 
 // PaymentMethods
 app.get('/paymentmethods/:id', verifyJWT, PaymentmethodController.find);
-app.get('/paymentmethods', verifyJWT,PaymentmethodController.all);
-app.post('/paymentmethods', verifyJWT,PaymentmethodController.create);
+app.get('/paymentmethods', verifyJWT, PaymentmethodController.all);
+app.post('/paymentmethods', verifyJWT, PaymentmethodController.create);
 app.put('/paymentmethods/:id/edit', verifyJWT, PaymentmethodController.update);
 app.delete('/paymentmethods/:id', verifyJWT, PaymentmethodController.delete);
 
