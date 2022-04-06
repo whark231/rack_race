@@ -44,6 +44,12 @@ export default function Login() {
             type={"password"}
             size="small"
           />
+          <TextField
+          label="New password"
+          onChange={(e)=>setPassword(e.target.value)}
+          type={"password"}
+          size="small"
+        />
           {/* Submit */}
           <Button 
             variant="contained" 
