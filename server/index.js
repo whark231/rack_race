@@ -1,48 +1,50 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const jwt = require("jsonwebtoken")
+require('dotenv').config();
+const {
+  verifyJWT
+} = require('./middlewares');
 
 const app = express();
-const PORT = 8080;
-
-app.use( express.json() );
-app.use( cors() );
-
-mongoose.connect('mongodb+srv://rgon:Neutrino@neutrinov2.yajh4.mongodb.net/test', {
-	useNewUrlParser: true,
-});
-
-
-function verifyJWT(req, res, next) {
-  if (!req.headers["authorization"]) {
-    return res.status(400).json({ message:"No Token Given", isLoggedIn: false });
-  }
-
-  const token = req.headers["authorization"].split(' ')[1];
-  if (token) {
-    jwt.verify(token, "pleasechange", (err, decoded) => {
-      if (err) return res.status(500).json({ message: "Failure to Auth", isLoggedIn: false });
-      req.user = {};
-      req.user.id = decoded.id;
-      req.user.username = decoded.username;
-      next();
-    })
-  } else {
-    return res.status(400).json({ message: "Incorrect Token Given", isLoggedIn: false });
-  }
+const PORT = process.env.PORT || 8080;
+const corsOptions = {
+  origin: "*"
 }
 
-
 // CONTROLLERS
-const UserController = require('./controllers/UserController');
-const PaymentmethodController = require('./controllers/PaymentmethodController');
-const MonthlypledgeController = require('./controllers/MonthlypledgeController');
-const WorkoutplanController = require('./controllers/WorkoutplanController');
-const WorkoutgroupController = require('./controllers/WorkoutgroupController');
+const {
+  UserController,
+  PaymentmethodController,
+  MonthlypledgeController,
+  WorkoutgroupController,
+  WorkoutplanController,
+  AuthController
+} = require("./controllers");
+
+// MIDDLEWARE 
+app.use( express.json() );
+app.use( cors(corsOptions) );
+
+// MONGO DB CONNECTION
+mongoose
+  .connect(process.env.DB_CONNECTION, {
+	  useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("MongoDB connection successful");
+  })
+  .catch(err => {
+    console.log(err.stack);
+    process.exit(1);
+  }
+);
 
 
-// ROUTES
+/* 
+ * ROUTES 
+ */
+
 // Users
 app.get('/users/:id', verifyJWT, UserController.find);
 app.get('/users', verifyJWT, UserController.all);
@@ -70,7 +72,7 @@ app.delete('/monthlypledges/:id', verifyJWT, MonthlypledgeController.delete);
 
 // WorkoutPlans
 app.get('/workoutplans/:id', verifyJWT, WorkoutplanController.find);
-app.get('/workoutplans', verifyJWT, WorkoutplanController.all);
+app.get('/workoutplans', WorkoutplanController.all);
 app.post('/workoutplans', verifyJWT, WorkoutplanController.create);
 app.put('/workoutplans/:id/edit', verifyJWT, WorkoutplanController.update);
 app.delete('/workoutplans/:id', verifyJWT, WorkoutplanController.delete);
@@ -85,10 +87,17 @@ app.post('/workoutgroups/:workoutgroup_id/add-user/:user_id', verifyJWT, Workout
 app.post('/workoutgroups/:workoutgroup_id/drop-user/:user_id', verifyJWT, WorkoutgroupController.dropUser);
 
 // AUTH
-app.post('/login', UserController.login);
-app.post('/register', UserController.register);
+app.post('/login', AuthController.login);
+app.post('/register', AuthController.register);
+app.put('/forgotpassword', AuthController.forgotPassword);
+app.put('/resetpassword', AuthController.resetPassword);
+
+// Default response for any other request
+app.use((_req, res) => {
+  res.status(404).send({ message: "404 not found" });
+});
 
 app.listen(
 	PORT,
-	console.log("Server running on http://localhost:8080...")
+	console.log(`Server running on http://localhost:${PORT}...`)
 );
