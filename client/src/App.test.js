@@ -40,3 +40,86 @@ import './App.css';
 import PrivateRoute from "./Auth/PrivateRoute";
 import Settings from "./Pages/User/Settings";
 import Wallet from "./Pages/User/Wallet";
+
+test("Home Page", () => {
+  render(<Home />);
+  const linkElement = screen.getByText("Welcome to Rack Race!");
+  expect(linkElement).toBeInTheDocument();
+});
+
+describe("Login Page", () => {
+
+  test("Username Form", () => {
+    render(<Login />);
+    const linkElement = screen.getByLabelText("username");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Password Form", () => {
+    render(<Login />);
+    const linkElement = screen.getByLabelText("password");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Login Button", () => {
+    render(<Login />);
+    const linkElement = screen.getByRole(role: "button");
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toContain("LOGIN");
+  });
+
+});
+
+describe("New User Page", () => {
+
+  test("Title, () => {
+    render(<UserNew/>);
+    const linkElement = screen.getByText("New User");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Name Form", () => {
+    render(<UserNew/>);
+    const linkElement = screen.getByLabelText("name");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Username Form", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByLabelText("username");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Email Form", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByLabelText("email");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Password Form", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByLabelText("password");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Charity Form", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByLabelText("charity");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Submit Button", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByRole(role: "button");
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toContain("SUBMIT");
+  });
+
+  test("Snackbar on Submit", () => {
+    render(<UserNew />);
+    const linkElement = screen.getByRole(role: "button");
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toContain("SUBMIT");
+  });
+
+});
