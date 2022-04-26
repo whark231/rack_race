@@ -7,6 +7,7 @@ import { render, screen, keyboard } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
+import { shallow } from 'enzyme';
 
 import renderer from "react-test-renderer";
 import { createMemoryHistory } from "history";
@@ -72,7 +73,7 @@ describe("Login Page", () => {
 
 describe("New User Page", () => {
 
-  test("Title, () => {
+  test("Title", () => {
     render(<UserNew/>);
     const linkElement = screen.getByText("New User");
     expect(linkElement).toBeInTheDocument();
@@ -117,9 +118,41 @@ describe("New User Page", () => {
 
   test("Snackbar on Submit", () => {
     render(<UserNew />);
-    const linkElement = screen.getByRole(role: "button");
+    const mockCallBack = jest.fn();
+    const button = shallow((<Button onClick={mockCallBack}>Ok!</Button>));
+    button.find('button').simulate('click');
+    const linkElement = screen.getByText("name cannot be left blank");
     expect(linkElement).toBeInTheDocument();
-    expect(linkElement).toContain("SUBMIT");
   });
+
+});
+
+describe("Settings Page", () => {
+
+  test("Settings Page Title", () => {
+    render(<Settings/>);
+    const linkElement = screen.getByText("Settings");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Edit User Info", () => {
+    render(<Settings/>);
+    const linkElement = screen.getByText("Edit User Info");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Edit Payment Info", () => {
+    render(<Settings/>);
+    const linkElement = screen.getByText("Edit Payment Info");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("Delete Account", () => {
+    render(<Settings/>);
+    const linkElement = screen.getByText("Delete account");
+    expect(linkElement).toBeInTheDocument();
+  });
+
+
 
 });
