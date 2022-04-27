@@ -32,8 +32,8 @@ describe("test auth screens", () => {
 
   it("logs into the app", () => {
     cy.visit("http://localhost:3000/login");
-    cy.getbyLabelText("username").type("willhark");
-    cy.getbyLabelText("password").type("test123");
+    cy.get('[label="username"]').type("willhark").should("have.value", "willhark");
+    cy.get('[label="password"]').type("test123").should("have.value", "test123");
     cy.get("Button").contains("Submit");
     cy.url().should("eq", "http://localhost:3000/");
   });
