@@ -18,16 +18,18 @@ export default function Login() {
             label="username"
             onChange={(e)=>setUsername(e.target.value)}
             size="small"
+            id = "username"
           />
         <TextField
           label="password"
           onChange={(e)=>setPassword(e.target.value)}
           type={"password"}
           size="small"
+          id = "password"
         />
         {/* Submit */}
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={() => login(username, password)}
         >Login</Button>
       </Stack>

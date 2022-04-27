@@ -21,20 +21,20 @@ describe("test auth screens", () => {
 
   it("creates a new user", () => {
     cy.visit("http://localhost:3000/register");
-    cy.getbyLabelText("name").type("Cypress").should("have.value", "Cypress");
-    cy.getbyLabelText("username").type("CypressUser").should("have.value", "CypressUser");
-    cy.getbyLabelText("email").type("Cypress@gmail.com").should("have.value", "Cypress@gmail.com");
-    cy.getbyLabelText("password").type("Cypress").should("have.value", "Cypress");
-    cy.getbyLabelText("charity").type("Cypress").should("have.value", "Cypress");
+    cy.get("#name").type("Cypress").should("have.value", "Cypress");
+    cy.get("#username").type("CypressUser").should("have.value", "CypressUser");
+    cy.get("#email").type("Cypress@gmail.com").should("have.value", "Cypress@gmail.com");
+    cy.get("#password").type("Cypress").should("have.value", "Cypress");
+    cy.get("#charity").type("Cypress").should("have.value", "Cypress");
     cy.get("Button").contains("Submit");
     cy.url().should("eq", "http://localhost:3000/login");
   });
 
   it("logs into the app", () => {
     cy.visit("http://localhost:3000/login");
-    cy.get('[label="username"]').type("willhark").should("have.value", "willhark");
-    cy.get('[label="password"]').type("test123").should("have.value", "test123");
-    cy.get("Button").contains("Submit");
+    cy.get('#username').type("willhark").should("have.value", "willhark");
+    cy.get('#password').type("test123").should("have.value", "test123");
+    cy.get("Button").contains("Login");
     cy.url().should("eq", "http://localhost:3000/");
   });
 

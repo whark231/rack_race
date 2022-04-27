@@ -68,27 +68,32 @@ export default function ValidatedForm(props) {
 					label='name' size='small' type='String'
 					value={name}
 					onChange={(e) => setName(e.target.value)}
+          id = "name"
 				/>
 				<TextField
 					label='username' size='small' type='String'
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
+          id = "username"
 				/>
 				<TextField
 					label='email' size='small' type='String'
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+          id = "email"
 				/>
 				<TextField
 					label='password' size='small' type='String'
           type="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+          id = "password"
 				/>
 				<TextField
 					label='charity' size='small' type='String'
 					value={charity}
 					onChange={(e) => setCharity(e.target.value)}
+          id = "charity"
 				/>
         <Button variant="contained" onClick={validate}>Submit</Button>
       </Stack>
