@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const invalidPassword = require('../util/validatePassword')
 
 const transporter = nodemailer.createTransport({
   port: 465,               // true for 465, false for other ports
@@ -46,10 +47,16 @@ const AuthController = {
     const takenEmail = await UserModel.findOne({ email: user.email });
 
     if (takenUsername) {
-      res.status(400).json({ message: "Username already taken" });
+      return res.status(400).json({ message: "Username already taken" });
     } else if (takenEmail) {
-      res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json({ message: "Email already exists" });
     } else {
+
+      // Password validation
+      if (invalidPassword(req.body.password)) {
+        return res.status(400).json({ message: invalidPassword(req.body.password) });
+      }
+
       user.password = await bcrypt.hash(req.body.password, 10);
       user.email = user.email.toLowerCase();
       user.username = user.username.toLowerCase();
@@ -130,6 +137,12 @@ const AuthController = {
   resetPassword: async (req, res) => {
     const { resetLink, newPassword } = req.body;
     if (!newPassword) return res.status(400).send({ message: "Must specify new password" });
+
+    // Password validation
+    if (invalidPassword(newPassword)) {
+      return res.status(400).json({ message: invalidPassword(newPassword) });
+    }
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     if (resetLink) {

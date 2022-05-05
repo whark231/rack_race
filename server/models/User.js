@@ -45,7 +45,9 @@ const UserSchema = new mongoose.Schema({
 			ref: 'User'
 		}
 	]
-});
+},
+{ timestamps: true }
+);
 
 UserSchema.virtual('paymentmethods', {
 	ref: 'Paymentmethod',

@@ -1,6 +1,7 @@
 const UserModel = require('../models/User');
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const invalidPassword = require('../util/validatePassword')
 
 const UserController = {
 
@@ -64,7 +65,6 @@ const UserController = {
 		const { name, username, email, password, charity } = req.body;
 		const user = new UserModel({ name: name, username: username, email: email, password: password, charity: charity });
     try {
-			
       await user.save();
       res.status(200).send('data created!');
       console.log('User created!');
@@ -77,6 +77,11 @@ const UserController = {
   update: async (req, res) => {
     const { id } = req.params;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // Password validation
+    if (req.body.password && invalidPassword(req.body.password)) {
+      return res.status(400).json({ message: invalidPassword(req.body.password) });
+    }
 			
     UserModel.findByIdAndUpdate(id, 
     {
