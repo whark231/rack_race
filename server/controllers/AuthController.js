@@ -53,9 +53,39 @@ const AuthController = {
       user.password = await bcrypt.hash(req.body.password, 10);
       user.email = user.email.toLowerCase();
       user.username = user.username.toLowerCase();
+
+      const token = jwt.sign(
+        { username: user.username },
+        process.env.VERIFY_EMAIL_KEY, 
+        { expiresIn: 86400 }
+      )
+      user.verifyEmailLink = token;
       const dbUser = new UserModel(user);
-      dbUser.save();
-      res.json({ message: "Success" });
+      await dbUser.save()
+        .catch(err => {
+          return res.status(400).send({ message: `Error: could not create user: ${err}` })
+        })
+
+      
+      const emailData = {
+        from: "rackrace@zohomail.com",
+        to: user.email,
+        subject: "RackRace Email Verification Link",
+        html:`
+          <h2>Please click on the link to verify your account</h2>
+          <p>${process.env.CLIENT_URL}/users/${dbUser._id}/verify/${token}</p>
+        `
+      }
+
+      transporter.sendMail(emailData, (err, info) => {
+        if (err) return res.status(500).send({ message: `Error sending email: ${err}` })
+        else {
+          return res.status(200).send({ 
+            message: "Email has been sent. Please follow directions to verify your email",
+            info: info,
+          });
+        }
+      });
     }    
   },
 
@@ -121,6 +151,39 @@ const AuthController = {
     } else {
       return res.status(401).send({ message: "Authentication error" })
     }
+  },
+
+  verifyEmail: async (req, res) => {
+    const { id, token } = req.params;
+    const user = await UserModel.findById(id);
+
+    if (!user) {
+      return res.status(400).send({ message: "User not found" });
+    }
+
+    if (token) {
+      jwt.verify(token, process.env.VERIFY_EMAIL_KEY, (err, decodedData) => {
+        if (err) return res.status(401).send({ message: "Incorrect or expired token" });
+
+        UserModel.findByIdAndUpdate(id, 
+          {
+            verified: true,
+          },
+          (err, data) => {
+            if (err) {
+              return res.status(400).send({ message: err});
+            } else {
+              console.log("here")
+              console.log(data)
+              return res.status(200).send({ message: "Email succesfully verified!" });
+            }
+          })
+      })
+    } else {
+      return res.status(401).send({ message: "Authentication error" })
+    }
+
+
   }
 }
 

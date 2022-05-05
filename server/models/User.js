@@ -25,6 +25,14 @@ const UserSchema = new mongoose.Schema({
     data: String,
     default: ''
   },
+  verifyEmailLink: {
+    data: String,
+    default: ''
+  },
+  verified: {
+    type: Boolean,
+    default: false
+  },
 	workoutgroups: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

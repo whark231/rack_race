@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const verifyJWT = (req, res, next) => {
   if (!req.headers["authorization"]) {
-    return res.status(400).json({ message:"No Token Given", isLoggedIn: false });
+    return res.status(401).json({ message: "No Token Given", isLoggedIn: false });
   }
 
   const token = req.headers["authorization"].split(' ')[1];
@@ -16,8 +16,10 @@ const verifyJWT = (req, res, next) => {
       next();
     })
   } else {
-    return res.status(400).json({ message: "Incorrect Token Given", isLoggedIn: false });
+    return res.status(401).json({ message: "Invalid Token Given", isLoggedIn: false });
   }
 }
 
-module.exports = verifyJWT;
+module.exports = {
+  verifyJWT,
+};
