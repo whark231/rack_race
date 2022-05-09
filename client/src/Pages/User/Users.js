@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, ButtonGroup } from '@mui/material';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 function useQuery() {
   const { search } = useLocation();
@@ -19,7 +20,7 @@ export default function Users() {
 
   useEffect(() => {
     setError(null);
-    axios.post("http://localhost:8080/search", 
+    axios.post(`${configData.SERVER_URL}/search`, 
       {
         query: query.get("search")
       }, { headers: authHeader() })
@@ -33,7 +34,7 @@ export default function Users() {
   }, [query]);
 
   function handleDelete(id) {
-    axios.delete(`http://localhost:8080/users/${id}`, { headers: authHeader() })
+    axios.delete(`${configData.SERVER_URL}/users/${id}`, { headers: authHeader() })
     window.location.reload();
   }
 

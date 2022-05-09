@@ -5,6 +5,7 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import { Button, ButtonGroup, CircularProgress, TextField } from '@mui/material';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function UserEdit() {
 	const { id } = useParams();	
@@ -14,7 +15,7 @@ export default function UserEdit() {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		axios.get(`http://localhost:8080/users/${id}`, { headers: authHeader() })
+		axios.get(`${configData.SERVER_URL}/users/${id}`, { headers: authHeader() })
 		.then((res) => {
 			setUser(res.data);
 			setLoading(false);
@@ -26,7 +27,7 @@ export default function UserEdit() {
 	}, []);
 
 	const handleSubmit = (name, username, email, password, charity) => {
-    axios.put(`http://localhost:8080/users/${id}/edit`, {
+    axios.put(`${configData.SERVER_URL}/users/${id}/edit`, {
 				name: name,
 				username: username,
 				email: email,

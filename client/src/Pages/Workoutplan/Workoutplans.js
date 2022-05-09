@@ -4,20 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import { Button, ButtonGroup } from '@mui/material';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function Workoutplans() {
   const [workoutplans, setWorkoutplans] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/workoutplans", { headers: authHeader() })
+    axios.get(`${configData.SERVER_URL}/workoutplans`, { headers: authHeader() })
       .then((res) => {
         setWorkoutplans(res.data)
       });
   }, []);
 
   function handleDelete(id) {
-    axios.delete(`http://localhost:8080/workoutplans/${id}`, { headers: authHeader() })
+    axios.delete(`${configData.SERVER_URL}/workoutplans/${id}`, { headers: authHeader() })
     window.location.reload();
   }
 

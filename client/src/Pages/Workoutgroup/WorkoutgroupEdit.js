@@ -4,6 +4,7 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function WorkoutgroupEdit() {
 	const { id } = useParams();	
@@ -13,7 +14,7 @@ export default function WorkoutgroupEdit() {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		axios.get(`http://localhost:8080/workoutgroups/${id}`, { headers: authHeader() })
+		axios.get(`${configData.SERVER_URL}/workoutgroups/${id}`, { headers: authHeader() })
 		.then((res) => {
 			setWorkoutgroup(res.data);
 			setLoading(false);
@@ -25,7 +26,7 @@ export default function WorkoutgroupEdit() {
 	}, []);
 
 	const handleSubmit = (name) => {
-    axios.put(`http://localhost:8080/workoutgroups/${id}/edit`, {
+    axios.put(`${configData.SERVER_URL}/workoutgroups/${id}/edit`, {
 				name: name,
     }, { headers: authHeader() })
     .then(res => {

@@ -4,6 +4,7 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function WorkoutplanEdit() {
 	const { id } = useParams();	
@@ -13,7 +14,7 @@ export default function WorkoutplanEdit() {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		axios.get(`http://localhost:8080/workoutplans/${id}`, { headers: authHeader() })
+		axios.get(`${configData.SERVER_URL}/workoutplans/${id}`, { headers: authHeader() })
 		.then((res) => {
 			setWorkoutplan(res.data);
 			setLoading(false);
@@ -25,7 +26,7 @@ export default function WorkoutplanEdit() {
 	}, []);
 
 	const handleSubmit = (target_days, curr_days_met, weekly_plan, monthlypledge) => {
-    axios.put(`http://localhost:8080/workoutplans/${id}/edit`, {
+    axios.put(`${configData.SERVER_URL}/workoutplans/${id}/edit`, {
 				target_days: target_days,
 				curr_days_met: curr_days_met,
 				weekly_plan: weekly_plan,

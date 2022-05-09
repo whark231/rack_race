@@ -26,6 +26,10 @@ const AuthController = {
     // user does not exist
     if (!user) return res.status(401).json({ message: "Invalid username" });
 
+    if (!user.verified) {
+      return res.status(401).json({ message: "Please verify your email by following the link sent" });
+    }
+
     // if user is locked out and not enough time has passed
     if (isValidDate(user.lockedOutAt) && (currTime - user.lockedOutAt < lockOutTime)) {
       console.log("User is locked out")

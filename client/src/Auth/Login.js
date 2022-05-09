@@ -37,19 +37,7 @@ export default function Login() {
               label="username"
               onChange={(e)=>setUsername(e.target.value)}
               size="small"
-            />
-          <TextField
-            label="Enter maiden name of mother"
-            onChange={(e)=> answer.current = e.target.value}
-            type={"password"}
-            size="small"
           />
-          <TextField
-          label="New password"
-          onChange={(e)=>setPassword(e.target.value)}
-          type={"password"}
-          size="small"
-        />
           {/* Submit */}
           <Button 
             variant="contained" 
@@ -86,8 +74,8 @@ export default function Login() {
         >Login</Button>
         <Button 
           variant="contained" 
-          onClick={() => setNeedsReset(true)}
-        >Reset Password</Button>
+          onClick={() => navigate('/forgotpassword')}
+        >Forgot Password</Button>
 
       </Stack>
     </div>
