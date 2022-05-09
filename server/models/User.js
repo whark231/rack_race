@@ -21,6 +21,14 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+  failedLoginAttempts: {
+    type: Number,
+    default: 0
+  },
+  lockedOutAt: {
+    type: Date,
+    default: ''
+  },
   resetLink: {
     data: String,
     default: ''

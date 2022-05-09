@@ -16,7 +16,7 @@ export default function Login() {
 
   //NOT FINISHED WITH RESET PASWORD 
 
-  function verify(username,answer){
+  function verify(username, answer){
     setNeedsReset(false);
     navigate("/users");
     return true;

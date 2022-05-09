@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const invalidPassword = require('../util/validatePassword')
+const isValidDate = require('../util/isValidDate')
 
 const transporter = nodemailer.createTransport({
   port: 465,               // true for 465, false for other ports
@@ -17,28 +18,82 @@ const transporter = nodemailer.createTransport({
 
 const AuthController = {
   login: async (req, res) => {
+    const maxFailedLogins = 3;
+    const lockOutTime = 1000 * 30; // default is milliseconds so this is 30 seconds
     const user = await UserModel.findOne({ username: req.body.username });
-    if (!user) return res.status(400).json({ message: "Invalid username" });
+    const currTime = new Date();
 
-    const checkpassword = await bcrypt.compare(req.body.password, user.password);
-    if (!checkpassword) return res.status(400).json({ message: "Incorrect password" });
+    // user does not exist
+    if (!user) return res.status(401).json({ message: "Invalid username" });
 
-    const payload = {
-      id: user._id.toString(),
-      username: user.username,
+    // if user is locked out and not enough time has passed
+    if (isValidDate(user.lockedOutAt) && (currTime - user.lockedOutAt < lockOutTime)) {
+      console.log("User is locked out")
+      return res.status(401).json({ message: "User is locked out" });
     }
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET, 
-      { expiresIn: 86400 },
-      (err, token) => {
-        if (err) return res.json({ message: err });
-        return res.json({
-          user: user._doc,
-          token: "Bearer " + token
-        });
+
+    // compare password
+    const checkpassword = await bcrypt.compare(req.body.password, user.password);
+
+    // Successful sign in, password is correct
+    if (checkpassword) {
+      // Set failed attempts to 0 and unlock user if previously locked
+      UserModel.findByIdAndUpdate(user._id, 
+        {
+          failedLoginAttempts: 0,
+          lockedOutAt: ''
+        },
+        (err, _data) => {
+          if (err) return res.status(500).send({ message: `Error processing request: ${err}`});
+        })
+
+      const payload = {
+        id: user._id.toString(),
+        username: user.username,
       }
-    );
+      jwt.sign(
+        payload,
+        process.env.JWT_SECRET, 
+        { expiresIn: 86400 },
+        (err, token) => {
+          if (err) return res.json({ message: err });
+          return res.json({
+            user: user._doc,
+            token: "Bearer " + token
+          });
+        }
+      );
+    }
+
+    // incorrect password
+    else {
+      // too many unsuccessful attempts, lock user out
+      if (user.failedLoginAttempts >= maxFailedLogins) {
+        UserModel.findByIdAndUpdate(user._id, 
+          {
+            lockedOutAt: new Date(),
+          },
+          (err, _data) => {
+            if (err) {
+              return res.status(500).send({ message: `Error processing request: ${err}`})
+            } else {
+              return res.status(401).send(
+                { message: `Too many unsuccesful attempts, you have been locked out for ${lockOutTime/1000} seconds`}
+              )
+            }
+          })
+      } else {
+        // increase failed attempts number and return 'incorrect password'
+        UserModel.findByIdAndUpdate(user._id, 
+          {
+            failedLoginAttempts: user.failedLoginAttempts + 1
+          },
+          (err, _data) => {
+            if (err) return res.status(500).send({ message: `Error processing request: ${err}`});
+            else return res.status(401).send({ message: `Incorrect password`});
+          })
+      }      
+    }
   },
 
   register: async (req, res) => {
@@ -186,7 +241,6 @@ const AuthController = {
             if (err) {
               return res.status(400).send({ message: err});
             } else {
-              console.log("here")
               console.log(data)
               return res.status(200).send({ message: "Email succesfully verified!" });
             }
