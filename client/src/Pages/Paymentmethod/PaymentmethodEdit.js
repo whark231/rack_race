@@ -4,6 +4,7 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function PaymentmethodEdit() {
 	const { id } = useParams();	
@@ -13,7 +14,7 @@ export default function PaymentmethodEdit() {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		axios.get(`http://localhost:8080/paymentmethods/${id}`, { headers: authHeader() })
+		axios.get(`${configData.SERVER_URL}/paymentmethods/${id}`, { headers: authHeader() })
 		.then((res) => {
 			setPaymentmethod(res.data);
 			setLoading(false);
@@ -25,7 +26,7 @@ export default function PaymentmethodEdit() {
 	}, []);
 
 	const handleSubmit = (number, name, expiration_date, CVV) => {
-    axios.put(`http://localhost:8080/paymentmethods/${id}/edit`, {
+    axios.put(`${configData.SERVER_URL}/paymentmethods/${id}/edit`, {
 				number: number,
 				name: name,
 				expiration_date: expiration_date,

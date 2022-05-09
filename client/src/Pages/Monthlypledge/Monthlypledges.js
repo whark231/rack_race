@@ -4,20 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import { Button, ButtonGroup } from '@mui/material';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
+import useApi from '../../hooks/useApi';
 
 export default function Monthlypledges() {
   const [monthlypledges, setMonthlypledges] = useState([]);
+  const { result: monthlyPledges, loading, error, refresh } = useApi(`${configData.SERVER_URL}/monthlypledges`);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get("http://localhost:8080/monthlypledges", { headers: authHeader() })
-      .then((res) => {
-        setMonthlypledges(res.data)
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${configData.SERVER_URL}/monthlypledges`, { headers: authHeader() })
+  //     .then((res) => {
+  //       setMonthlypledges(res.data)
+  //     });
+  // }, []);
 
   function handleDelete(id) {
-    axios.delete(`http://localhost:8080/monthlypledges/${id}`, { headers: authHeader() })
+    axios.delete(`${configData.SERVER_URL}/monthlypledges/${id}`, { headers: authHeader() })
     window.location.reload();
   }
 

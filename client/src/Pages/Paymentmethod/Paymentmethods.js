@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { Button, ButtonGroup } from '@mui/material';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function Paymentmethods() {
   const [paymentmethods, setPaymentmethods] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/paymentmethods").then((res) => {
+    axios.get(`${configData.SERVER_URL}/paymentmethods`).then((res) => {
       setPaymentmethods(res.data)
     }, { headers: authHeader() });
   }, []);
 
   function handleDelete(id) {
-    axios.delete(`http://localhost:8080/paymentmethods/${id}`, { headers: authHeader() })
+    axios.delete(`${configData.SERVER_URL}/paymentmethods/${id}`, { headers: authHeader() })
     window.location.reload();
   }
 

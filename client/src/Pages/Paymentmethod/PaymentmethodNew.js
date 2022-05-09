@@ -4,12 +4,13 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function PaymentmethodNew() {
   const navigate = useNavigate();
 
 	const handleSubmit = (number, name, expiration_date, CVV, user) => {
-		axios.post('http://localhost:8080/paymentmethods', {
+		axios.post(`${configData.SERVER_URL}/paymentmethods`, {
 				number: number,
 				name: name,
 				expiration_date: expiration_date,

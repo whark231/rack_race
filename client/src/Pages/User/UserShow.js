@@ -5,6 +5,7 @@ import { Button, ButtonGroup, CircularProgress, TextField, styled } from '@mui/m
 import { UserContext } from '../../hooks/UserContext';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 const CustomButton = styled(Button)(({ theme }) => ({
   color: "white",
@@ -25,7 +26,7 @@ export default function UserShow(props) {
 	const [userId, setUserId] = useState();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/users/${id}`, { headers: authHeader() })
+    axios.get(`${configData.SERVER_URL}/users/${id}`, { headers: authHeader() })
     .then((res) => {
       if (res.status === 500) {
         setError(true);

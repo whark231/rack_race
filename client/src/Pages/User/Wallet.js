@@ -5,6 +5,7 @@ import { Button, ButtonGroup, CircularProgress, TextField } from '@mui/material'
 import { UserContext } from '../../hooks/UserContext';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function Wallet(props) {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export default function Wallet(props) {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`http://localhost:8080/users/${authUser._id}`, { headers: authHeader() })
+    axios.get(`${configData.SERVER_URL}/users/${authUser._id}`, { headers: authHeader() })
     .then((res) => {
       setUser(res.data);
       setLoading(false);

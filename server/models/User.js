@@ -21,9 +21,25 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+  failedLoginAttempts: {
+    type: Number,
+    default: 0
+  },
+  lockedOutAt: {
+    type: Date,
+    default: ''
+  },
   resetLink: {
     data: String,
     default: ''
+  },
+  verifyEmailLink: {
+    data: String,
+    default: ''
+  },
+  verified: {
+    type: Boolean,
+    default: false
   },
 	workoutgroups: [
 		{
@@ -37,7 +53,9 @@ const UserSchema = new mongoose.Schema({
 			ref: 'User'
 		}
 	]
-});
+},
+{ timestamps: true }
+);
 
 UserSchema.virtual('paymentmethods', {
 	ref: 'Paymentmethod',

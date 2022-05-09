@@ -1,5 +1,11 @@
 # SERVER
 
+## DEPLOYMENT
+Most stuff like cors and the procfile are already set up to work with Heroku, the only thing that I think ~might give 
+you trouble is the fact that we're using an env file. Since you're not supposed to push this to heroku, I think 
+you manually have to declare the environment variables in the UI or something
+
+
 ## TESTING
 Set up a new cluster and db instance using MongoDB Atlas, then download MongoDB compass and copy the 
 database connect string on index.js

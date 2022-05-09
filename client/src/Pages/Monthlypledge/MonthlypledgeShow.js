@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button, ButtonGroup, CircularProgress, TextField } from '@mui/material';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function MonthlypledgeShow(props) {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export default function MonthlypledgeShow(props) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/monthlypledges/${id}`, { headers: authHeader() })
+    axios.get(`${configData.SERVER_URL}/monthlypledges/${id}`, { headers: authHeader() })
     .then((res) => {
       if (res.status === 500) {
         setError(true);
@@ -29,7 +30,7 @@ export default function MonthlypledgeShow(props) {
   }, []);
 
   function handleDelete() {
-    axios.delete(`http://localhost:8080/monthlypledges/${id}`);
+    axios.delete(`${configData.SERVER_URL}/monthlypledges/${id}`);
     navigate('/monthlypledges');
   }
 

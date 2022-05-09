@@ -5,6 +5,7 @@ import authHeader from '../../services/auth-header';
 import '../../App.css';
 import { UserContext } from '../../hooks/UserContext';
 import useAuth from '../../hooks/useAuth';
+import configData from '../../config.json'
 
 export default function Settings() {
   const { authUser } = useContext(UserContext);
@@ -12,7 +13,7 @@ export default function Settings() {
   const navigate = useNavigate();
 
   function handleDelete() {
-    axios.delete(`http://localhost:8080/users/${authUser._id}`, { headers: authHeader() });
+    axios.delete(`${configData.SERVER_URL}/users/${authUser._id}`, { headers: authHeader() });
     logout();
   }
 

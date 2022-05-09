@@ -24,11 +24,14 @@ import WorkoutgroupEdit from './Pages/Workoutgroup/WorkoutgroupEdit';
 import { UserContext } from './hooks/UserContext';
 import useFindUser from './hooks/useFindUser';
 import Login from './Auth/Login';
+import ForgotPassword from "./Auth/ForgotPassword";
+import ResetPassword from "./Auth/ResetPassword";
 import Nav from './Components/Nav'
 import './App.css';
 import PrivateRoute from "./Auth/PrivateRoute";
 import Settings from "./Pages/User/Settings";
 import Wallet from "./Pages/User/Wallet";
+import VerifyEmail from "./Auth/VerifyEmail";
 
 
 function App() {
@@ -45,6 +48,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path='/login' element={<Login />} />
 				<Route path='/register' element={<UserNew />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path='/resetpassword/:token' element={<ResetPassword />} />
+        <Route path='/users/:id/verify/:token' element={<VerifyEmail />} />
 
         {/* PRIVATE ROUTES */}
         <Route
