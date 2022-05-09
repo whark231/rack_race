@@ -19,7 +19,8 @@ const {
   MonthlypledgeController,
   WorkoutgroupController,
   WorkoutplanController,
-  AuthController
+  AuthController,
+  WorkoutController,
 } = require("./controllers");
 
 // MIDDLEWARE 
@@ -91,6 +92,9 @@ app.post('/login', AuthController.login);
 app.post('/register', AuthController.register);
 app.put('/forgotpassword', AuthController.forgotPassword);
 app.put('/resetpassword', AuthController.resetPassword);
+
+// Workout
+app.post('/postnewworkout', WorkoutController.create)
 
 // Default response for any other request
 app.use((_req, res) => {

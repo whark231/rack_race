@@ -15,7 +15,6 @@ const Alert = React.forwardRef((props, ref) => {
 
 
 export default function ValidatedForm(props) {
-	const { id } = localStorage.getItem("userId");	
 	const [workoutLength, setWorkoutLength] = useState(0);
 	const [location, setWorkoutLocation] = useState('');
 	const [description, setWorkoutDescription] = useState('');
@@ -26,7 +25,7 @@ export default function ValidatedForm(props) {
 
   useEffect(() => {
 		if (props.model) {
-			setWorkoutLength(props.model.length);
+			setWorkoutLength(props.model.workoutLength);
 			setWorkoutLocation(props.model.location);
 			setWorkoutDescription(props.model.description);
 			setWorkoutDate(props.model.date);
@@ -83,7 +82,7 @@ export default function ValidatedForm(props) {
 					onChange={(e) => setWorkoutDescription(e.target.value)}
 					multiline
 					minRows={4}
-					helperText="What you did during your workout"
+					helperText="What did you do during your workout"
 				/>
 				<TextField
 					label='Workout date' size='small' type='String'

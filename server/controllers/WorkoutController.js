@@ -12,8 +12,10 @@ const WorkoutController = {
         }
     }, 
     create: async (req, res) => {
-		const { user, workout_length, location, description, date, time, } = req.body;
-		const workout = new WorkoutModel({ user: user, workout_length: workout_length, location: location, description: description, date: date, time: time, });
+		const { user_id , workout_length, location, description, date, time, } = req.body;
+        console.log("here!");
+        console.log(workout_length);
+		const workout = new WorkoutModel({ user_id: user_id, workout_length: workout_length, location: location, description: description, date: date, time: time, });
         try {  
             await workout.save();
             res.status(200).send('data created!');
@@ -24,3 +26,5 @@ const WorkoutController = {
         }
   },
 }
+
+module.exports = WorkoutController;
