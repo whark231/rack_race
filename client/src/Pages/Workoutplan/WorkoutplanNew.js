@@ -4,12 +4,13 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function WorkoutplanNew() {
   const navigate = useNavigate();
 
 	const handleSubmit = (target_days, curr_days_met, weekly_plan, monthlypledge) => {
-		axios.post('http://localhost:8080/workoutplans', {
+		axios.post(`${configData.SERVER_URL}/workoutplans`, {
 				target_days: target_days,
 				curr_days_met: curr_days_met,
 				weekly_plan: weekly_plan,

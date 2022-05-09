@@ -5,13 +5,14 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import { UserContext } from '../../hooks/UserContext';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function MonthlypledgeNew() {
   const navigate = useNavigate();
   const { authUser } = useContext(UserContext);
 
 	const handleSubmit = (payment_amount, active, user) => {
-		axios.post('http://localhost:8080/monthlypledges', {
+		axios.post(`${configData.SERVER_URL}/monthlypledges`, {
 				payment_amount: payment_amount,
 				active: active,
 				user: user,

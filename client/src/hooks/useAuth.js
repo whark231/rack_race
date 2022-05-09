@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from './UserContext';
+import configData from "../config.json";
 
 export default function useAuth() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function useAuth() {
   // login
   const login = (username, password) => {
     setError(null);
-    axios.post(`http://localhost:8080/login`, {
+    axios.post(`${configData.SERVER_URL}/login`, {
       username: username,
       password: password
     })
@@ -45,7 +46,7 @@ export default function useAuth() {
   // register user
   const registerUser = async (data) => {
     const { name, address, username, email, password } = data;
-    return axios.post('http://localhost:8080/register', {
+    return axios.post(`${configData.SERVER_URL}/register`, {
       name, address, username, email, password
     })
     .then(res => {

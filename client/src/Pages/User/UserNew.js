@@ -4,12 +4,13 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function UserNew() {
   const navigate = useNavigate();
 
 	const handleSubmit = (name, username, email, password, charity) => {
-		axios.post('http://localhost:8080/register', {
+		axios.post(`${configData.SERVER_URL}/register`, {
 				name: name,
 				username: username,
 				email: email,

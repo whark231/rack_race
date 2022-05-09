@@ -4,6 +4,7 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import '../../App.css';
+import configData from '../../config.json'
 
 export default function MonthlypledgeEdit() {
 	const { id } = useParams();	
@@ -13,7 +14,7 @@ export default function MonthlypledgeEdit() {
   const navigate = useNavigate();
 
 	useEffect(() => {
-		axios.get(`http://localhost:8080/monthlypledges/${id}`, { headers: authHeader() })
+		axios.get(`${configData.SERVER_URL}/monthlypledges/${id}`, { headers: authHeader() })
 		.then((res) => {
 			setMonthlypledge(res.data);
 			setLoading(false);
@@ -25,7 +26,7 @@ export default function MonthlypledgeEdit() {
 	}, []);
 
 	const handleSubmit = (payment_amount, active, user) => {
-    axios.put(`http://localhost:8080/monthlypledges/${id}/edit`, {
+    axios.put(`${configData.SERVER_URL}/monthlypledges/${id}/edit`, {
 				payment_amount: payment_amount,
 				active: active,
 				user: user,
