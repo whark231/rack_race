@@ -21,6 +21,7 @@ import Workoutgroups from './Pages/Workoutgroup/Workoutgroups';
 import WorkoutgroupNew from './Pages/Workoutgroup/WorkoutgroupNew';
 import WorkoutgroupShow from './Pages/Workoutgroup/WorkoutgroupShow';
 import WorkoutgroupEdit from './Pages/Workoutgroup/WorkoutgroupEdit';
+import WorkoutNew from './Pages/Workout/WorkoutNew';
 import { UserContext } from './hooks/UserContext';
 import useFindUser from './hooks/useFindUser';
 import Login from './Auth/Login';
@@ -104,6 +105,9 @@ function App() {
         <Route
           path="/workoutgroups/:id/edit"
           element={ <PrivateRoute component={<WorkoutgroupEdit />} />}/>
+       <Route
+          path="/workoutnew"
+          element={ <PrivateRoute component={<WorkoutNew />} />}/>
       </Routes>  
     </div>
 		</UserContext.Provider>
