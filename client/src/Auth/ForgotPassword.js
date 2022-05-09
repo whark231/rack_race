@@ -33,21 +33,22 @@ export default function ForgotPassword() {
       <h1>Forgot Password</h1>
       <Stack spacing={3}>
         {error &&
-          <div style={{color: "red"}}>{error}</div>
+          <div id = "error" style={{color: "red"}}>{error}</div>
         }
         {response &&
-          <div style={{color: "blue"}}>{response}</div>
+          <div id = "response" style={{color: "blue"}}>{response}</div>
         }
         <TextField
           label="email"
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
           size="small"
+          id = "email"
         />
 
         {/* Submit */}
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={handleForgotPassword}
         > {loading ? "Loading..." : "Forgot Password"}</Button>
       </Stack>

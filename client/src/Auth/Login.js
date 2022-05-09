@@ -9,12 +9,12 @@ export default function Login() {
   const [needsReset,setNeedsReset] = useState(false);
   const answer = useRef("");
   const navigate = useNavigate();
-  
+
 
   const { login, error } = useAuth();
 
 
-  //NOT FINISHED WITH RESET PASWORD 
+  //NOT FINISHED WITH RESET PASWORD
 
   function verify(username, answer){
     setNeedsReset(false);
@@ -37,10 +37,11 @@ export default function Login() {
               label="username"
               onChange={(e)=>setUsername(e.target.value)}
               size="small"
+              id = "username"
           />
           {/* Submit */}
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             onClick={() => verify(username, answer.current)}
           >Verify</Button>
         </Stack>
@@ -60,20 +61,22 @@ export default function Login() {
             label="username"
             onChange={(e)=>setUsername(e.target.value)}
             size="small"
+            id = "username"
           />
         <TextField
           label="password"
           onChange={(e)=>setPassword(e.target.value)}
           type={"password"}
           size="small"
+          id = "password"
         />
         {/* Submit */}
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={() => login(username, password)}
         >Login</Button>
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={() => navigate('/forgotpassword')}
         >Forgot Password</Button>
 
