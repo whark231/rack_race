@@ -4,5 +4,5 @@ module.exports.MonthlypledgeController = require('./MonthlypledgeController');
 module.exports.WorkoutplanController = require('./WorkoutplanController');
 module.exports.WorkoutgroupController = require('./WorkoutgroupController');
 module.exports.AuthController = require('./AuthController');
-module.exports.AuthController = require('./WorkoutController');
+module.exports.WorkoutController = require('./WorkoutController');
 
