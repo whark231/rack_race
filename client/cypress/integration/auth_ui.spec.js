@@ -57,20 +57,11 @@ describe("test auth screens", () => {
   it("locks the user out", () => {
     cy.visit("http://localhost:3000/login");
     cy.get('#username').type("willhark").should("have.value", "willhark");
-    // 1
     cy.get('#password').type("wrong").should("have.value", "wrong");
     cy.get("Button").contains("Login").click();
-    // 2
-    // cy.get('#password').type("wrong").should("have.value", "wrong");
     cy.get("Button").contains("Login").click();
-    // 3
-    // cy.get('#password').type("wrong").should("have.value", "wrong");
     cy.get("Button").contains("Login").click();
-    // 5
-    // cy.get('#password').type("wrong").should("have.value", "wrong");
     cy.get("Button").contains("Login").click();
-    // 5
-    // cy.get('#password').type("wrong").should("have.value", "wrong");
     cy.get("Button").contains("Login").click();
     cy.url().should("eq", "http://localhost:3000/login");
     // check for lockout
