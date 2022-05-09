@@ -38,14 +38,6 @@ describe("test auth screens", () => {
     cy.url().should("eq", "http://localhost:3000/");
   });
 
-  // it("submits the username and routes to", () => {
-  //   cy.intercept("POST", "/login**", { statusCode: 204 });
-  //   cy.visit("http://localhost:3000/login");
-  //   cy.get("input").type("john");
-  //   cy.get("form").submit();
-  //   cy.url().should("eq", "http://localhost:3000/");
-  // });
-
   it("wrong credentials (password)", () => {
     cy.visit("http://localhost:3000/login");
     cy.get('#username').type("username").should("have.value", "username");
