@@ -45,10 +45,10 @@ export default function MonthlypledgeShow(props) {
         <div className='row'>
           <h1 className='paddedRight'>Monthly Pledge: ${monthlypledge.payment_amount}</h1>
 
-          <Button variant="outlined" style={{marginRight: 15}}
+          <Button variant="outlined" style={{marginRight: 15}} id = "edit"
             onClick={() => navigate(`/monthlypledges/${id}/edit`)}>edit
           </Button>
-          <Button variant="contained" color="error" 
+          <Button variant="contained" color="error" id = "delete"
             onClick={handleDelete}>delete
           </Button>
         </div>
@@ -58,12 +58,12 @@ export default function MonthlypledgeShow(props) {
 
 				<div className='displayContainer'>
 					<h3>Workout Plans</h3>
-					<Button variant='contained' onClick={() => navigate(`/monthlypledges/${id}/workoutplans/new`)}>New Workoutplan</Button>
+					<Button id = "new" variant='contained' onClick={() => navigate(`/monthlypledges/${id}/workoutplans/new`)}>New Workoutplan</Button>
 					<ul>
 					{monthlypledge.workoutplans && monthlypledge.workoutplans.map((workoutplan, i) => (
 						<div className='listItem' key={i}>
 							<li>{workoutplan.target_days}</li>
-							<Button variant='outlined' size='small'
+							<Button variant='outlined' size='small' id = "show"
 								onClick={() => navigate(`/workoutplans/${workoutplan._id}`)}>show</Button>
 						</div>
 					))}
