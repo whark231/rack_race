@@ -14,7 +14,7 @@ const Alert = React.forwardRef((props, ref) => {
 });
 
 export default function ValidatedForm(props) {
-	const { id } = useParams();	
+	const { id } = useParams();
 	const [payment_amount, setPayment_Amount] = useState(0);
 	const [active, setActive] = useState(false);
 	const [user, setUser] = useState(id ? id : '');
@@ -63,9 +63,9 @@ export default function ValidatedForm(props) {
 				/>
 				<div className='row'>
 					<label>active:</label>
-					<Checkbox 
+					<Checkbox
 						checked={active}
-						defaultChecked 
+						defaultChecked
 						onChange={(e) => setActive(e.target.type === 'checkbox' ? e.target.checked : e.target.value)}
 					/>
 				</div>
@@ -74,7 +74,7 @@ export default function ValidatedForm(props) {
 					value={user}
 					onChange={(e) => setUser(e.target.value)}
 				/>
-        <Button variant="contained" onClick={validate}>Submit</Button>
+        <Button id = "submit" variant="contained" onClick={validate}>Submit</Button>
       </Stack>
 
       <Snackbar open={openErr} autoHideDuration={6000} onClose={handleClose}>
