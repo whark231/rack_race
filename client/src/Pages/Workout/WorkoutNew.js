@@ -30,7 +30,7 @@ export default function WorkoutplanNew() {
 
 	return (
 		<div className='container'>
-			<h1>New Workout</h1>
+			<h1>Log Workout</h1>
             <ValidatedForm submit={(length, location, description, date, time) => handleSubmit(length, location, description, date, time)}/>
 		</div>
 	)
