@@ -4,7 +4,7 @@ const WorkoutController = {
     find: async (req, res) => {
         const { id } = req.params;
         try {
-            const data = await WorkoutModel.findById(id)
+            const data = await WorkoutModel.findById(id).populate({ path: 'user', select: '_id name user' });
             res.status(200).send(data);
         } catch (err) {
             res.status(400).send(err.message);

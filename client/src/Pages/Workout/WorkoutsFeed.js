@@ -8,7 +8,7 @@ export default function WorkoutsFeed({ username, length, location, description, 
     // get all of the workouts right now
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    // const [workouts, setWorkouts] = useState([]);
+    const [workouts, setWorkouts] = useState([]);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/workout/getfeedworkouts`, { headers: authHeader() })
@@ -16,18 +16,30 @@ export default function WorkoutsFeed({ username, length, location, description, 
             if (res.status === 500) {
                 setError(true);
             } else {
-                console.log(res.data);
+                
+                setWorkouts(res.data);
             }
+            console.log("here");
             setLoading(false);
         })
         .catch((err) => {
           console.log(err);
           setError(err);
         });
-      });
-    
+      }, [loading]);
+
+      const workout_li = [];
+
+      workouts.forEach((workout) => {
+          // console.log(workout);
+          
+          workout_li.push(<li><a href={"/workout/" + workout._id}>{workout.date + ' ' + workout.description} </a> </li>);
+      });        
     
     return (
-        <h1>Workout feed coming soon!</h1>
+        <div>
+            <h1>Workout feed</h1>
+            <ul> {workout_li} </ul>
+        </div>
     );
 }

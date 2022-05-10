@@ -96,6 +96,7 @@ app.put('/resetpassword', AuthController.resetPassword);
 // Workout
 app.post('/workout/postnewworkout', WorkoutController.create);
 app.get('/workout/getfeedworkouts', WorkoutController.all);
+app.get('/workout/:id', WorkoutController.find);
 app.delete('/workout/deleteAll', WorkoutController.deleteAll);
 
 // Default response for any other request
