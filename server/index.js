@@ -19,7 +19,8 @@ const {
   MonthlypledgeController,
   WorkoutgroupController,
   WorkoutplanController,
-  AuthController
+  AuthController,
+  WorkoutController,
 } = require("./controllers");
 
 // MIDDLEWARE
@@ -91,6 +92,12 @@ app.post('/login', AuthController.login);
 app.post('/register', AuthController.register);
 app.put('/forgotpassword', AuthController.forgotPassword);
 app.put('/resetpassword', AuthController.resetPassword);
+
+// Workout
+app.post('/workout/postnewworkout', WorkoutController.create);
+app.get('/workout/getfeedworkouts', WorkoutController.all);
+app.get('/workout/getworkout/:id', WorkoutController.find);
+app.delete('/workout/deleteAll', WorkoutController.deleteAll);
 
 // Default response for any other request
 app.use((_req, res) => {

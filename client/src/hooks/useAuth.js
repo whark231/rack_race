@@ -13,6 +13,9 @@ export default function useAuth() {
     const auth = JSON.parse(localStorage.getItem('auth'));
     if (auth) {
       setAuthUser(auth.user);
+      localStorage.setItem("userId", auth.user._id);
+      //console.log(auth.user);
+      //console.log(localStorage.getItem("id"));
       navigate('../');
     }
   }

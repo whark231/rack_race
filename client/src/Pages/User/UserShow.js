@@ -24,6 +24,7 @@ export default function UserShow(props) {
   const [error, setError] = useState(false);
 	const [workoutgroupId, setWorkoutgroupId] = useState();
 	const [userId, setUserId] = useState();
+  const [userWorkouts, setUserWorkouts] = useState()
 
   useEffect(() => {
     axios.get(`${configData.SERVER_URL}/users/${id}`, { headers: authHeader() })
@@ -92,7 +93,7 @@ export default function UserShow(props) {
     return (
       <div className='container'>
         <div className='row'>
-          <h1 className='paddedRight'>{user.name}</h1>
+          <h1 className='paddedRight'>{user ? user.name : ''}</h1>
 
           { authUser && authUser._id === id ?
             <div className='row'>
@@ -175,7 +176,28 @@ export default function UserShow(props) {
             <p>{(authUser && authUser._id === id) ? "you have" : "this user has"} no friends!</p>
           }
 				</div>
+
+        {/* SHOW USER WORKOUTS */}
+				<div className='displayContainer' style={{}}>
+					<h3>Workouts</h3>
+          <Button variant='contained' onClick={() => navigate(`/workoutnew`)}>New Workout</Button>
+					
+          {(userWorkouts && userWorkouts.length > 0) ?
+            <ul>
+            {userWorkouts.map((workout, i) => (
+              <div className='listItem' key={i}>
+                <li><a href={"/workout/" + workout._id}>
+                  {workout.date + ' ' + workout.description} </a></li>
+              </div>
+            ))}
+            </ul>
+            :
+            <p>{(authUser && authUser._id === id) ? "you have" : "this user has"} no workouts!</p>
+          }
+				</div>
       </div>
+
+      
     );
   }
 }

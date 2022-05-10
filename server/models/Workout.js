@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const WorkoutSchema = new mongoose.Schema({
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	},
 	workout_length: {
 		type: Number,
@@ -30,3 +31,4 @@ const WorkoutSchema = new mongoose.Schema({
 
 const Workout = mongoose.model('Workout', WorkoutSchema);
 module.exports = Workout;
+
