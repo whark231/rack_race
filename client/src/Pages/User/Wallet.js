@@ -54,7 +54,7 @@ export default function Wallet(props) {
               <li>{method.number}</li>
               <ButtonGroup variant="outlined" size="small">
                 <Button onClick={() => navigate(`/paymentmethods/${method._id}`)}>show</Button>
-                <Button onClick={() => navigate(`/paymentmethods/${method._id}/edit`)}>edit</Button>
+                <Button id = "edit" onClick={() => navigate(`/paymentmethods/${method._id}/edit`)}>edit</Button>
                 <Button color="error" onClick={() => handleDelete(method._id)}>delete</Button>
               </ButtonGroup>
             </div>
