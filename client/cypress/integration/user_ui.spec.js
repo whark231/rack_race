@@ -56,7 +56,7 @@ describe("testing routing to different pages from settings page", () => {
     cy.url().should('contain', '/edit');
   });
 
-  it("route to edit user info", () => {
+  it("route to edit user info 2", () => {
     cy.visit("http://localhost:3000/login");
     cy.get('#username').type("username").should("have.value", "username");
     cy.get('#password').type("password").should("have.value", "password");
@@ -171,10 +171,12 @@ describe("testing routing to different pages from profile page", () => {
     cy.url().should("contain", "http://localhost:3000/workoutplans/");
 
   });
+});
 
-  describe("testing routing to different pages from profile further routing", () => {
 
-    it("route through new monthly pledge", () => {
+describe("editing and deleting items", () => {
+
+    it("delete monthly pledge", () => {
       cy.visit("http://localhost:3000/login");
       cy.get('#username').type("username").should("have.value", "username");
       cy.get('#password').type("password").should("have.value", "password");
@@ -188,7 +190,8 @@ describe("testing routing to different pages from profile page", () => {
       cy.url().should("contain", "localhost:3000/users")
     });
   
-    it("route to monthly pledge page and new work out plan", () => {
+  
+    it("edit monthly pledge", () => {
       cy.visit("http://localhost:3000/login");
       cy.get('#username').type("username").should("have.value", "username");
       cy.get('#password').type("password").should("have.value", "password");
@@ -205,7 +208,8 @@ describe("testing routing to different pages from profile page", () => {
       cy.get("#weekly_plan").type("1").should("have.value", "1");
     });
   
-    it("route to monthly pledge page and look at work out plan", () => {
+  
+    it("edit payment info", () => {
       cy.visit("http://localhost:3000/login");
       cy.get('#username').type("username").should("have.value", "username");
       cy.get('#password').type("password").should("have.value", "password");
@@ -217,9 +221,22 @@ describe("testing routing to different pages from profile page", () => {
       cy.get("#show").click();
       cy.url().should("contain", "http://localhost:3000/workoutplans/");
   
-    });
-  
-  });
-  
-
+      cy.get("#settings").click();
+      cy.get("#edit_payment_info").click();
+      cy.get("#new_pay").click();
+      cy.get("#number").type("1");
+      cy.get("#name").type("name");
+      cy.get("#expiration_date").type("124214");
+      cy.get("#cvv").type("11");
+      cy.get("#avatar").click();
+      cy.get("#settings").click();
+      cy.get("#edit_payment_info").click();
+      cy.get("#edit").click();
+      cy.get("#number").type("1");
+      cy.get("#name").type("name");
+      cy.get("#expiration_date");
+      cy.get("#cvv").type("11");
+      cy.url().should('contain', 'http://localhost:3000/paymentmethods');
+      cy.url().should('contain', 'edit');
+    })
 });
