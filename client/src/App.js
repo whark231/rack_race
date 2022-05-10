@@ -1,10 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from './Home';
-import Users from './Pages/User/Users';
-import UserNew from './Pages/User/UserNew';
-import UserShow from './Pages/User/UserShow';
-import UserEdit from './Pages/User/UserEdit';
+// import Users from './Pages/User/Users';
+// import UserNew from './Pages/User/UserNew';
+// import UserShow from './Pages/User/UserShow';
+// import UserEdit from './Pages/User/UserEdit';
+import { Users, UserNew, UserShow, UserEdit } from './Pages/User/index'
 import Paymentmethods from './Pages/Paymentmethod/Paymentmethods';
 import PaymentmethodNew from './Pages/Paymentmethod/PaymentmethodNew';
 import PaymentmethodShow from './Pages/Paymentmethod/PaymentmethodShow';
