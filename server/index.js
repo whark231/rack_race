@@ -94,7 +94,9 @@ app.put('/forgotpassword', AuthController.forgotPassword);
 app.put('/resetpassword', AuthController.resetPassword);
 
 // Workout
-app.post('/postnewworkout', WorkoutController.create)
+app.post('/workout/postnewworkout', WorkoutController.create);
+app.get('/workout/getfeedworkouts', WorkoutController.all);
+app.delete('/workout/deleteAll', WorkoutController.deleteAll);
 
 // Default response for any other request
 app.use((_req, res) => {

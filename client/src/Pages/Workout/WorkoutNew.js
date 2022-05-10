@@ -7,12 +7,12 @@ import '../../App.css';
 
 export default function WorkoutplanNew() {
   const navigate = useNavigate();
-  const { id } = localStorage.getItem("userId");
+  const user_id = localStorage.getItem("userId");
   
   const handleSubmit = (length, location, description, date, time) => {
-      console.log(length);
-      axios.post('http://localhost:8080/postnewworkout', {
-            user_id : id,
+      console.log(user_id);
+      axios.post('http://localhost:8080/workout/postnewworkout', {
+            user : user_id,
             workout_length : length,
             location : location,
             description : description,
