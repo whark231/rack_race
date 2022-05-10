@@ -44,8 +44,8 @@ export default function Nav() {
     <div className='nav'>
 
       {/* Search Box*/}
-      { authUser && 
-        <TextField 
+      { authUser &&
+        <TextField
           onFocus={onFocus} onBlur={onBlur}
           onChange={(e) => setSearch(e.target.value)}
           value={search}
@@ -69,7 +69,7 @@ export default function Nav() {
           <div style={styles.greeting}>hi {authUser.username}</div>
 
           <div onClick={handleClick} style={{cursor: "pointer"}}>
-            <Avatar>H</Avatar>
+            <Avatar id = "avatar">H</Avatar>
           </div>
         </div>
         :
@@ -87,9 +87,9 @@ export default function Nav() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => {navigate(`/users/${authUser._id}`); handleClose()}}>Profile</MenuItem>
-        <MenuItem onClick={() => {navigate(`/settings`); handleClose()}}>Settings</MenuItem>
-        <MenuItem onClick={() => {logout(); handleClose()}}>Logout</MenuItem>
+        <MenuItem id = "profile" onClick={() => {navigate(`/users/${authUser._id}`); handleClose()}}>Profile</MenuItem>
+        <MenuItem id = "settings" onClick={() => {navigate(`/settings`); handleClose()}}>Settings</MenuItem>
+        <MenuItem id = "logout" onClick={() => {logout(); handleClose()}}>Logout</MenuItem>
       </Menu>
     </div>
   )

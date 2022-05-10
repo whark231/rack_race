@@ -23,8 +23,9 @@ export default function Settings() {
       <div className='row'>
 
         {/* EDIT USER INFO */}
-        <div 
+        <div
           className='settingsContainer'
+          id = "edit_user_info"
           onClick={() => navigate(`/users/${authUser._id}/edit`)}
         >
           <h4>Edit User Info</h4>
@@ -32,8 +33,9 @@ export default function Settings() {
         </div>
 
         {/* PAYMENT METHODS */}
-        <div 
+        <div
           className='settingsContainer'
+          id = "edit_payment_info"
           onClick={() => navigate('wallet')}
         >
           <h4>Edit Payment Info</h4>
@@ -41,8 +43,9 @@ export default function Settings() {
         </div>
 
         {/* DELETE ACCOUNT */}
-        <div 
+        <div
           className='settingsContainer'
+          id = "delete_account"
           onClick={handleDelete}
         >
           <h4>Delete account</h4>

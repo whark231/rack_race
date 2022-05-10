@@ -45,40 +45,40 @@ export default function UserShow(props) {
 
   function addWorkoutgroup() {
     axios.post(`http://localhost:8080/users/${id}/add-workoutgroup/${workoutgroupId}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      alert("error: " + e.response.data.message) 
+    .catch((e) => {
+      alert("error: " + e.response.data.message)
     })
     axios.post(`http://localhost:8080/workoutgroups/${workoutgroupId}/add-user/${id}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      alert("error: " + e.response.data.message) 
+    .catch((e) => {
+      alert("error: " + e.response.data.message)
     })
     window.location.reload();
   }
 
   function dropWorkoutgroup(droppedId) {
     axios.post(`http://localhost:8080/users/${id}/drop-workoutgroup/${droppedId}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      alert("error: " + e.response.data.message) 
+    .catch((e) => {
+      alert("error: " + e.response.data.message)
     })
     axios.post(`http://localhost:8080/workoutgroups/${droppedId}/drop-user/${id}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      alert("error: " + e.response.data.message) 
+    .catch((e) => {
+      alert("error: " + e.response.data.message)
     })
     window.location.reload();
   }
 
   function addFriend() {
     axios.post(`http://localhost:8080/users/${authUser._id}/add-friend/${id}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      console.log("error: " + e.response.data.message) 
+    .catch((e) => {
+      console.log("error: " + e.response.data.message)
     });
     window.location.reload();
   }
 
   function dropFriend(droppedId) {
     axios.post(`http://localhost:8080/users/${id}/drop-friend/${droppedId}`, {}, { headers: authHeader() })
-    .catch((e) => { 
-      console.log("error: " + e.response.data.message) 
+    .catch((e) => {
+      console.log("error: " + e.response.data.message)
     })
     window.location.reload();
   }
@@ -97,7 +97,7 @@ export default function UserShow(props) {
           { authUser && authUser._id === id ?
             <div className='row'>
               <Button variant="outlined" style={{marginRight: 15}}
-                onClick={() => navigate(`/settings`)}>settings
+                onClick={() => navigate(`/settings`)} id = "settings">settings
               </Button>
             </div>
             :
@@ -119,12 +119,13 @@ export default function UserShow(props) {
         { authUser && authUser._id === id &&
         <div className='displayContainer'>
 					<h3>Monthly Pledges</h3>
-					<Button variant='contained' onClick={() => navigate(`/users/${id}/monthlypledges/new`)}>New Monthly Pledge</Button>
+					<Button id = "pledge" variant='contained' onClick={() => navigate(`/users/${id}/monthlypledges/new`)}>New Monthly Pledge</Button>
 					<ul>
 					{user.monthlypledges && user.monthlypledges.map((monthlypledge, i) => (
 						<div className='listItem' key={i}>
 							<li>{monthlypledge.payment_amount}</li>
 							<Button variant='outlined' size='small'
+              id = "show"
 								onClick={() => navigate(`/monthlypledges/${monthlypledge._id}`)}>show</Button>
 						</div>
 					))}
@@ -152,13 +153,13 @@ export default function UserShow(props) {
             <p>{(authUser && authUser._id === id) ? "you are" : "this user is"} currently in no groups</p>
           }
 
-					
+
 				</div>
 
         {/* SHOW FRIENDS */}
 				<div className='displayContainer' style={{}}>
 					<h3>Friends</h3>
-					
+
           {(user.friends && user.friends.length > 0) ?
             <ul>
             {user.friends.map((user, i) => (
