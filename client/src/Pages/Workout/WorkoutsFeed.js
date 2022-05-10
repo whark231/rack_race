@@ -33,7 +33,9 @@ export default function WorkoutsFeed({ username, length, location, description, 
       workouts.forEach((workout) => {
           // console.log(workout);
           
-          workout_li.push(<li><a href={"/workout/" + workout._id}>{workout.date + ' ' + workout.description} </a> </li>);
+          workout_li.push(<li>
+              <a href={"/workout/" + workout._id}>
+                {workout.date + ' ' + workout.description} </a> </li>);
       });        
     
     return (

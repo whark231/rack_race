@@ -15,7 +15,7 @@ export default function WorkoutPost({ username, length, location, description, d
     console.log(workoutid);
     // use axios to find the corresponding post in the DB
     useEffect(() => {
-        axios.get(`http://localhost:8080/workout/${workoutid}`, { headers: authHeader() })
+        axios.get(`http://localhost:8080/workout/getworkout/${workoutid}`, { headers: authHeader() })
         .then((res) => {
             if (res.status === 500) {
                 setError(true);
@@ -34,7 +34,7 @@ export default function WorkoutPost({ username, length, location, description, d
     // rende gu
     if(!loading){
         return (
-            <WorkoutPostComponent username={workout.user.name} length={workout.length} 
+            <WorkoutPostComponent username={workout.user.name} length={workout.workout_length} 
                 location={workout.location} description={workout.description} date={workout.date} time={workout.time} /> 
         );
     } else {

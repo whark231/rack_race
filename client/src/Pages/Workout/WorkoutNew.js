@@ -21,6 +21,7 @@ export default function WorkoutplanNew() {
     } , { headers: authHeader() })
     .then(res => {
         console.log("Workout created!");
+        navigate("/workoutsfeed");
      }).catch(err => {
         alert(err)
       })
