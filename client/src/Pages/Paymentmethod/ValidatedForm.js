@@ -14,7 +14,7 @@ const Alert = React.forwardRef((props, ref) => {
 });
 
 export default function ValidatedForm(props) {
-  const { id } = useParams();	
+  const { id } = useParams();
 	const [number, setNumber] = useState(0);
 	const [name, setName] = useState('');
 	const [expiration_date, setExpiration_Date] = useState('');
@@ -70,28 +70,32 @@ export default function ValidatedForm(props) {
 					label='number' size='small' type='Number'
 					value={number}
 					onChange={(e) => setNumber(e.target.value)}
+          id = "number"
 				/>
 				<TextField
 					label='name' size='small' type='String'
 					value={name}
 					onChange={(e) => setName(e.target.value)}
+          id = "name"
 				/>
 				<TextField
 					label='expiration_date' size='small' type='String'
 					value={expiration_date}
 					onChange={(e) => setExpiration_Date(e.target.value)}
+          id = "expiration_date"
 				/>
 				<TextField
 					label='CVV' size='small' type='Number'
 					value={CVV}
 					onChange={(e) => setCvv(e.target.value)}
+          id = "cvv"
 				/>
         <TextField
 					label='user' size='small' type='String'
 					value={user}
 					onChange={(e) => setUser(e.target.value)}
 				/>
-        <Button variant="contained" onClick={validate}>Submit</Button>
+        <Button id = "submit" variant="contained" onClick={validate}>Submit</Button>
       </Stack>
 
       <Snackbar open={openErr} autoHideDuration={6000} onClose={handleClose}>

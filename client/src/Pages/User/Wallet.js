@@ -47,7 +47,7 @@ export default function Wallet(props) {
         {/* PAYMENT INFO */}
         <div className='displayContainer'>
           <h3>Payment Methods</h3>
-          <Button variant='contained' onClick={() => navigate(`/users/${authUser._id}/paymentmethods/new`)}>New Payment Method</Button>
+          <Button id = "new_pay" variant='contained' onClick={() => navigate(`/users/${authUser._id}/paymentmethods/new`)}>New Payment Method</Button>
           <ul>
           {user && user.paymentmethods && user.paymentmethods.map((method, i) => (
             <div className='listItem' key={i}>
