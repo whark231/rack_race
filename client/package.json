@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.9.12"
+    "@cypress/code-coverage": "^3.9.12",
+    "jest": "^28.1.0"
   }
 }

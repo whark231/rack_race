@@ -114,7 +114,7 @@ describe("testing routing to different pages from profile page", () => {
     cy.url().should('contain', 'monthlypledges/new');
   });
 
-  it("route to montly pledge page", () => {
+  it("route to monthly pledge page", () => {
     cy.visit("http://localhost:3000/login");
     cy.get('#username').type("username").should("have.value", "username");
     cy.get('#password').type("password").should("have.value", "password");
