@@ -14,7 +14,7 @@ const Alert = React.forwardRef((props, ref) => {
 });
 
 export default function ValidatedForm(props) {
-	const { id } = useParams();	
+	const { id } = useParams();
 	const [target_days, setTarget_Days] = useState(0);
 	const [curr_days_met, setCurr_Days_Met] = useState(0);
 	const [weekly_plan, setWeekly_Plan] = useState('');
@@ -65,21 +65,25 @@ export default function ValidatedForm(props) {
 					label='target_days' size='small' type='Number'
 					value={target_days}
 					onChange={(e) => setTarget_Days(e.target.value)}
+          id = "target_days"
 				/>
 				<TextField
 					label='curr_days_met' size='small' type='Number'
 					value={curr_days_met}
 					onChange={(e) => setCurr_Days_Met(e.target.value)}
+          id = "curr_days_met"
 				/>
 				<TextField
 					label='weekly_plan' size='small' type='String'
 					value={weekly_plan}
 					onChange={(e) => setWeekly_Plan(e.target.value)}
+          id = "weekly_plan"
 				/>
 				<TextField
 					label='monthlypledge' size='small' type='String'
 					value={monthlypledge}
 					onChange={(e) => setMonthlypledge(e.target.value)}
+          id = "monthlypledge"
 				/>
         <Button variant="contained" onClick={validate}>Submit</Button>
       </Stack>
