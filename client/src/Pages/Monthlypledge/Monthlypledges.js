@@ -27,7 +27,7 @@ export default function Monthlypledges() {
   return (
     <div className='container'>
       <h1>Monthlypledges</h1>
-      <Button variant={"contained"} onClick={() => navigate("/monthlypledges/new")}>new monthlypledge</Button>
+      <Button id = "new" variant={"contained"} onClick={() => navigate("/monthlypledges/new")}>new monthly pledge</Button>
 
       <ul>
       {monthlypledges.map((monthlypledge, i) => (
