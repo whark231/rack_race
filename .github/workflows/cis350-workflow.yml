@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ testing ]
   pull_request:
-    branches: [ main ]
+    branches: [ heroku_branch ]
 
 jobs:
   lint-test-build:
